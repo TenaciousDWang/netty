@@ -1,7 +1,9 @@
 package com.nettyDemo.Server;
 
 import com.nettyDemo.Server.handler.AuthHandler;
+import com.nettyDemo.Server.handler.CreateGroupRequestHandler;
 import com.nettyDemo.Server.handler.LoginRequestHandler;
+import com.nettyDemo.Server.handler.LogoutRequestHandler;
 import com.nettyDemo.Server.handler.MessageRequestHandler;
 import com.nettyDemo.codec.PacketDecoder;
 import com.nettyDemo.codec.PacketEncoder;
@@ -48,7 +50,9 @@ public class NettyServer {
                         ch.pipeline().addLast(new LoginRequestHandler());//添加一个逻辑处理器
                         // 新增加用户认证handler
                         ch.pipeline().addLast(new AuthHandler());
-                        ch.pipeline().addLast(new MessageRequestHandler());//添加一个逻辑处理器                 	                    	
+                        ch.pipeline().addLast(new MessageRequestHandler());//添加一个逻辑处理器     
+                        ch.pipeline().addLast(new CreateGroupRequestHandler());
+                        ch.pipeline().addLast(new LogoutRequestHandler());
                     	ch.pipeline().addLast(new PacketEncoder());//添加一个编码逻辑处理器
                     }
                     

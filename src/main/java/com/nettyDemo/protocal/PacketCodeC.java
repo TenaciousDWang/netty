@@ -1,22 +1,22 @@
 package com.nettyDemo.protocal;
 
-import static com.nettyDemo.protocal.command.Command.LOGIN_REQUEST;
-import static com.nettyDemo.protocal.command.Command.LOGIN_RESPONSE;
-import static com.nettyDemo.protocal.command.Command.MESSAGE_REQUEST;
-import static com.nettyDemo.protocal.command.Command.MESSAGE_RESPONSE;
+import static com.nettyDemo.protocal.command.Command.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import com.nettyDemo.protocal.request.CreateGroupRequestPacket;
 import com.nettyDemo.protocal.request.LoginRequestPacket;
+import com.nettyDemo.protocal.request.LogoutRequestPacket;
 import com.nettyDemo.protocal.request.MessageRequestPacket;
+import com.nettyDemo.protocal.respones.CreateGroupResponsePacket;
 import com.nettyDemo.protocal.respones.LoginResponsePacket;
+import com.nettyDemo.protocal.respones.LogoutResponsePacket;
 import com.nettyDemo.protocal.respones.MessageResponsePacket;
 import com.nettyDemo.serialize.Serializer;
 import com.nettyDemo.serialize.impl.JSONSerializer;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
 
 public class PacketCodeC {
 	
@@ -32,6 +32,10 @@ public class PacketCodeC {
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
         packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
         packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
+        packetTypeMap.put(LOGOUT_REQUEST, LogoutRequestPacket.class);
+        packetTypeMap.put(LOGOUT_RESPONSE, LogoutResponsePacket.class);
+        packetTypeMap.put(CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        packetTypeMap.put(CREATE_GROUP_RESPONSE, CreateGroupResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();
