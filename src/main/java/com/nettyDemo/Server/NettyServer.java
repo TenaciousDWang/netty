@@ -2,9 +2,12 @@ package com.nettyDemo.Server;
 
 import com.nettyDemo.Server.handler.AuthHandler;
 import com.nettyDemo.Server.handler.CreateGroupRequestHandler;
+import com.nettyDemo.Server.handler.JoinGroupRequestHandler;
+import com.nettyDemo.Server.handler.ListGroupMembersRequestHandler;
 import com.nettyDemo.Server.handler.LoginRequestHandler;
 import com.nettyDemo.Server.handler.LogoutRequestHandler;
 import com.nettyDemo.Server.handler.MessageRequestHandler;
+import com.nettyDemo.Server.handler.QuitGroupRequestHandler;
 import com.nettyDemo.codec.PacketDecoder;
 import com.nettyDemo.codec.PacketEncoder;
 import com.nettyDemo.codec.Spliter;
@@ -52,7 +55,10 @@ public class NettyServer {
                         ch.pipeline().addLast(new AuthHandler());
                         ch.pipeline().addLast(new MessageRequestHandler());//添加一个逻辑处理器     
                         ch.pipeline().addLast(new CreateGroupRequestHandler());
+                        ch.pipeline().addLast(new JoinGroupRequestHandler());
+                        ch.pipeline().addLast(new QuitGroupRequestHandler());
                         ch.pipeline().addLast(new LogoutRequestHandler());
+                        ch.pipeline().addLast(new ListGroupMembersRequestHandler());
                     	ch.pipeline().addLast(new PacketEncoder());//添加一个编码逻辑处理器
                     }
                     
