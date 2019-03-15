@@ -2,14 +2,14 @@ package com.nettyDemo.Server;
 
 import com.nettyDemo.Server.handler.AuthHandler;
 import com.nettyDemo.Server.handler.CreateGroupRequestHandler;
+import com.nettyDemo.Server.handler.GroupMessageRequestHandler;
 import com.nettyDemo.Server.handler.JoinGroupRequestHandler;
 import com.nettyDemo.Server.handler.ListGroupMembersRequestHandler;
 import com.nettyDemo.Server.handler.LoginRequestHandler;
 import com.nettyDemo.Server.handler.LogoutRequestHandler;
 import com.nettyDemo.Server.handler.MessageRequestHandler;
 import com.nettyDemo.Server.handler.QuitGroupRequestHandler;
-import com.nettyDemo.codec.PacketDecoder;
-import com.nettyDemo.codec.PacketEncoder;
+import com.nettyDemo.codec.PacketCodecHandler;
 import com.nettyDemo.codec.Spliter;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -49,17 +49,17 @@ public class NettyServer {
                     protected void initChannel(NioSocketChannel ch) {
                     	
                     	ch.pipeline().addLast(new Spliter());
-                    	ch.pipeline().addLast(new PacketDecoder());//添加一个解码逻辑处理器
-                        ch.pipeline().addLast(new LoginRequestHandler());//添加一个逻辑处理器
-                        // 新增加用户认证handler
-                        ch.pipeline().addLast(new AuthHandler());
-                        ch.pipeline().addLast(new MessageRequestHandler());//添加一个逻辑处理器     
-                        ch.pipeline().addLast(new CreateGroupRequestHandler());
-                        ch.pipeline().addLast(new JoinGroupRequestHandler());
-                        ch.pipeline().addLast(new QuitGroupRequestHandler());
-                        ch.pipeline().addLast(new LogoutRequestHandler());
-                        ch.pipeline().addLast(new ListGroupMembersRequestHandler());
-                    	ch.pipeline().addLast(new PacketEncoder());//添加一个编码逻辑处理器
+                    	ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
+                        ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(AuthHandler.INSTANCE);
+                        ch.pipeline().addLast(MessageRequestHandler.INSTANCE);    
+                        ch.pipeline().addLast(CreateGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(JoinGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(QuitGroupRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(LogoutRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(ListGroupMembersRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(GroupMessageRequestHandler.INSTANCE);
+
                     }
                     
                 });

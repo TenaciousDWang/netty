@@ -9,11 +9,19 @@ import com.nettyDemo.protocal.respones.ListGroupMembersResponsePacket;
 import com.nettyDemo.util.SessionUtil;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
-
+//加上注解标识，表明该 handler 是可以多个 channel 共享的
+@ChannelHandler.Sharable
 public class ListGroupMembersRequestHandler extends SimpleChannelInboundHandler<ListGroupMembersRequestPacket>{
+	//构造单例
+	public static final ListGroupMembersRequestHandler INSTANCE = new ListGroupMembersRequestHandler();
+	
+	protected ListGroupMembersRequestHandler() {
+		
+	}
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ListGroupMembersRequestPacket requestPacket) {
         // 1. 获取群的 ChannelGroup

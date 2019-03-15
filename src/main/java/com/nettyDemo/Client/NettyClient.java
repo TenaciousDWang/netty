@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import com.nettyDemo.Client.console.ConsoleCommandManager;
 import com.nettyDemo.Client.console.LoginConsoleCommand;
 import com.nettyDemo.Client.handler.CreateGroupResponseHandler;
+import com.nettyDemo.Client.handler.GroupMessageResponseHandler;
 import com.nettyDemo.Client.handler.JoinGroupResponseHandler;
 import com.nettyDemo.Client.handler.ListGroupMembersResponseHandler;
 import com.nettyDemo.Client.handler.LoginResponseHandler;
@@ -55,12 +56,13 @@ public class NettyClient {
                     	ch.pipeline().addLast(new Spliter());//添加一个拆包处理器
                     	ch.pipeline().addLast(new PacketDecoder());//添加一个解码逻辑处理器
                     	ch.pipeline().addLast(new LoginResponseHandler());//添加一个逻辑处理器
-                    	ch.pipeline().addLast(new LogoutResponseHandler());//添加一个解码逻辑处理器
+                    	ch.pipeline().addLast(new LogoutResponseHandler());//添加一个逻辑处理器
                     	ch.pipeline().addLast(new MessageResponseHandler());//添加一个逻辑处理器
-                    	ch.pipeline().addLast(new CreateGroupResponseHandler());//添加一个解码逻辑处理器
-                    	ch.pipeline().addLast(new JoinGroupResponseHandler());//添加一个解码逻辑处理器
-                    	ch.pipeline().addLast(new QuitGroupResponseHandler());//添加一个解码逻辑处理器
-                    	ch.pipeline().addLast(new ListGroupMembersResponseHandler());//添加一个解码逻辑处理器
+                    	ch.pipeline().addLast(new CreateGroupResponseHandler());//添加一个逻辑处理器
+                    	ch.pipeline().addLast(new JoinGroupResponseHandler());//添加一个逻辑处理器
+                    	ch.pipeline().addLast(new QuitGroupResponseHandler());//添加一个逻辑处理器
+                    	ch.pipeline().addLast(new ListGroupMembersResponseHandler());//添加一个逻辑处理器
+                    	ch.pipeline().addLast(new GroupMessageResponseHandler());//添加一个逻辑处理器
                     	ch.pipeline().addLast(new PacketEncoder());//添加一个编码逻辑处理器
                     	
                     }

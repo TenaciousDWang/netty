@@ -8,10 +8,18 @@ import com.nettyDemo.protocal.respones.MessageResponsePacket;
 import com.nettyDemo.util.SessionUtil;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
+//加上注解标识，表明该 handler 是可以多个 channel 共享的
+@ChannelHandler.Sharable
 public class MessageRequestHandler extends SimpleChannelInboundHandler<MessageRequestPacket> {
+	//构造单例
+	public static final MessageRequestHandler INSTANCE = new MessageRequestHandler();
+	
+	protected MessageRequestHandler() {
+		
+	}
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, MessageRequestPacket messageRequestPacket) {
         // 1.拿到消息发送方的会话信息

@@ -2,10 +2,19 @@ package com.nettyDemo.Server.handler;
 
 import com.nettyDemo.util.SessionUtil;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-
+//加上注解标识，表明该 handler 是可以多个 channel 共享的
+@ChannelHandler.Sharable
 public class AuthHandler extends ChannelInboundHandlerAdapter{
+	
+	//构造单例
+	public static final AuthHandler INSTANCE = new AuthHandler();
+	
+	protected AuthHandler() {
+		
+	}
 	
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {

@@ -9,12 +9,20 @@ import com.nettyDemo.util.IDUtil;
 import com.nettyDemo.util.SessionUtil;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
-
+//加上注解标识，表明该 handler 是可以多个 channel 共享的
+@ChannelHandler.Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket>{
+	//构造单例
+	public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+	
+	protected CreateGroupRequestHandler() {
+		
+	}
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket createGroupRequestPacket) {
         List<String> userIdList = createGroupRequestPacket.getUserIdList();
