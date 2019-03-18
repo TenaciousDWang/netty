@@ -14,6 +14,7 @@ import com.nettyDemo.Client.handler.LoginResponseHandler;
 import com.nettyDemo.Client.handler.LogoutResponseHandler;
 import com.nettyDemo.Client.handler.MessageResponseHandler;
 import com.nettyDemo.Client.handler.QuitGroupResponseHandler;
+import com.nettyDemo.Server.handler.IMIdleStateHandler;
 import com.nettyDemo.codec.PacketDecoder;
 import com.nettyDemo.codec.PacketEncoder;
 import com.nettyDemo.codec.Spliter;
@@ -52,7 +53,8 @@ public class NettyClient {
                 .handler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) {
-                    	
+                        // 空闲检测
+                        ch.pipeline().addLast(new IMIdleStateHandler());
                     	ch.pipeline().addLast(new Spliter());//添加一个拆包处理器
                     	ch.pipeline().addLast(new PacketDecoder());//添加一个解码逻辑处理器
                     	ch.pipeline().addLast(new LoginResponseHandler());//添加一个逻辑处理器

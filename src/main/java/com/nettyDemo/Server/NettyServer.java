@@ -3,6 +3,8 @@ package com.nettyDemo.Server;
 import com.nettyDemo.Server.handler.AuthHandler;
 import com.nettyDemo.Server.handler.CreateGroupRequestHandler;
 import com.nettyDemo.Server.handler.GroupMessageRequestHandler;
+import com.nettyDemo.Server.handler.HeartBeatRequestHandler;
+import com.nettyDemo.Server.handler.IMIdleStateHandler;
 import com.nettyDemo.Server.handler.JoinGroupRequestHandler;
 import com.nettyDemo.Server.handler.ListGroupMembersRequestHandler;
 import com.nettyDemo.Server.handler.LoginRequestHandler;
@@ -47,10 +49,12 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<NioSocketChannel>() {//(C.连接读写处理逻辑)
                 	//NioSocketChannel对应Socket概念是一个连接
                     protected void initChannel(NioSocketChannel ch) {
-                    	
+                        // 空闲检测
+                        ch.pipeline().addLast(new IMIdleStateHandler());
                     	ch.pipeline().addLast(new Spliter());
                     	ch.pipeline().addLast(PacketCodecHandler.INSTANCE);
                         ch.pipeline().addLast(LoginRequestHandler.INSTANCE);
+                        ch.pipeline().addLast(HeartBeatRequestHandler.INSTANCE);
                         ch.pipeline().addLast(AuthHandler.INSTANCE);
                         ch.pipeline().addLast(MessageRequestHandler.INSTANCE);    
                         ch.pipeline().addLast(CreateGroupRequestHandler.INSTANCE);
