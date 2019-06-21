@@ -10,7 +10,8 @@ import io.netty.handler.codec.MessageToMessageDecoder;
 
 public class PacketDecoder extends MessageToMessageDecoder<ByteBuf> {
 
-    @Override
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List out) {
         out.add(PacketCodeC.INSTANCE.decode(in));
     }

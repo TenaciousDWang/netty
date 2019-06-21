@@ -1,10 +1,8 @@
 package com.nettyDemo.Client.handler;
 
 import java.util.Date;
-import java.util.UUID;
 
 import com.nettyDemo.Session.Session;
-import com.nettyDemo.protocal.request.LoginRequestPacket;
 import com.nettyDemo.protocal.respones.LoginResponsePacket;
 import com.nettyDemo.util.SessionUtil;
 

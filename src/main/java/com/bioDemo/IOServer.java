@@ -6,7 +6,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class IOServer {
-    public static void main(String[] args) throws Exception {
+    @SuppressWarnings("resource")
+	public static void main(String[] args) throws Exception {
 
         ServerSocket serverSocket = new ServerSocket(8000);
 

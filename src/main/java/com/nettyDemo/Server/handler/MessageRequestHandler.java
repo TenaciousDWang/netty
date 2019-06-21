@@ -1,7 +1,5 @@
 package com.nettyDemo.Server.handler;
 
-import java.util.Date;
-
 import com.nettyDemo.Session.Session;
 import com.nettyDemo.protocal.request.MessageRequestPacket;
 import com.nettyDemo.protocal.respones.MessageResponsePacket;
